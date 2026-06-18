@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<bookRecord
+ xmlns="http://bookshelf-schema.org/schema/"
+ xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+ xsi:schemaLocation="http://bookshelf-schema.org/schema/ bookshelf-schema.xsd">
+
+    <title>Why? 우주</title>
+
+    <creator>이광웅</creator>
+
+    <creatorNationality>Korean</creatorNationality>
+
+    <issued>2019-03-15</issued>
+
+    <publisher>예림당</publisher>
+
+    <identifier>9788930237017</identifier>
+
+    <subject>Science</subject>
+    <subject>Astronomy</subject>
+
+    <extent>164</extent>
+
+    <audience>Children</audience>
+    <audience>Youth</audience>
+
+    <readingLevel>Beginner</readingLevel>
+
+    <emotionalTone>Hopeful</emotionalTone>
+
+    <context>AcademicReading</context>
+
+    <theme vocabulary="LCSH">Outer space</theme>
+    <theme vocabulary="LCSH">Astronomy</theme>
+    <theme vocabulary="LCSH">Science education</theme>
+
+</bookRecord>

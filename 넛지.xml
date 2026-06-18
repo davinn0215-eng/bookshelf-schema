@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<bookRecord
+ xmlns="http://bookshelf-schema.org/schema/"
+ xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+ xsi:schemaLocation="http://bookshelf-schema.org/schema/ bookshelf-schema.xsd">
+
+    <title>Nudge</title>
+
+    <creator>Richard H. Thaler; Cass R. Sunstein</creator>
+
+    <creatorNationality>American</creatorNationality>
+
+    <issued>2022-06-20</issued>
+
+    <publisher>리더스북</publisher>
+
+    <identifier>9788901260679</identifier>
+
+    <subject>Economics</subject>
+    <subject>Behavioral economics</subject>
+
+    <extent>488</extent>
+
+    <audience>Youth</audience>
+    <audience>MiddleAge</audience>
+
+    <readingLevel>Advanced</readingLevel>
+
+    <emotionalTone>Reflective</emotionalTone>
+
+    <context>AcademicReading</context>
+
+    <theme vocabulary="LCSH">Decision making</theme>
+    <theme vocabulary="LCSH">Choice architecture</theme>
+    <theme vocabulary="LCSH">Behavioral economics</theme>
+
+</bookRecord>

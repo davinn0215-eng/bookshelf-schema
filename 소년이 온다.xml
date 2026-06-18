@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<bookRecord
+ xmlns="http://bookshelf-schema.org/schema/"
+ xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+ xsi:schemaLocation="http://bookshelf-schema.org/schema/ bookshelf-schema.xsd">
+
+    <title>소년이 온다</title>
+
+    <creator>한강</creator>
+
+    <creatorNationality>Korean</creatorNationality>
+
+    <issued>2014-05-19</issued>
+
+    <publisher>창비</publisher>
+
+    <identifier>9788936434120</identifier>
+
+    <subject>Literature</subject>
+
+    <extent>216</extent>
+
+    <audience>Youth</audience>
+    <audience>MiddleAge</audience>
+    <audience>Elderly</audience>
+
+    <readingLevel>Advanced</readingLevel>
+
+    <emotionalTone>Melancholic</emotionalTone>
+    <emotionalTone>Dark</emotionalTone>
+    <emotionalTone>Reflective</emotionalTone>
+
+    <context>ReflectiveReading</context>
+
+    <theme vocabulary="LCSH">Political violence</theme>
+    <theme vocabulary="LCSH">Collective memory</theme>
+    <theme vocabulary="LCSH">Historical trauma</theme>
+
+</bookRecord>
