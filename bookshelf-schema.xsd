@@ -1,0 +1,382 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema"
+    targetNamespace="http://bookshelf-schema.org/schema/"
+    xmlns="http://bookshelf-schema.org/schema/"
+    xmlns:bk="http://bookshelf-schema.org/schema/" 
+    elementFormDefault="qualified">    
+    
+
+    <!--
+    DESIGN INTENT:
+    This schema is designed for book discovery and recommendation.
+    It combines traditional bibliographic metadata with reader-centered metadata 
+
+    AI ASSISTANCE:
+    Initial schema structure was generated with ChatGPT.
+    The generated code was revised to match the project's data dictionary,
+    cardinality requirements, and controlled vocabularies.
+    -->
+
+    <!-- _______________________________ -->
+    <!-- CONTROLLED VOCABULARY: AUDIENCE -->
+   
+
+    <xs:simpleType name="audienceType">
+        <xs:restriction base="xs:string">
+            <xs:enumeration value="Children"/>
+            <xs:enumeration value="Youth"/>
+            <xs:enumeration value="MiddleAge"/>
+            <xs:enumeration value="Elderly"/>
+            <xs:enumeration value="Senior"/>
+            <xs:enumeration value="General"/>
+        </xs:restriction>
+    </xs:simpleType>
+
+    <!-- ____________________________________ -->
+    <!-- CONTROLLED VOCABULARY: READING LEVEL -->
+    
+
+    <xs:simpleType name="readingLevelType">
+        <xs:restriction base="xs:string">
+            <xs:enumeration value="Beginner"/>
+            <xs:enumeration value="Intermediate"/>
+            <xs:enumeration value="Advanced"/>
+        </xs:restriction>
+    </xs:simpleType>
+
+    <!-- _____________________________________ -->
+    <!-- CONTROLLED VOCABULARY: EMOTIONAL TONE -->
+   
+
+    <xs:simpleType name="emotionalToneType">
+        <xs:restriction base="xs:string">
+            <xs:enumeration value="Melancholic"/>
+            <xs:enumeration value="Hopeful"/>
+            <xs:enumeration value="Dark"/>
+            <xs:enumeration value="Warm"/>
+            <xs:enumeration value="Tense"/>
+            <xs:enumeration value="Reflective"/>
+            <xs:enumeration value="Critical"/>
+            <xs:enumeration value="Humorous"/>
+        </xs:restriction>
+    </xs:simpleType>
+
+    <!-- _______________________________-->
+    <!-- CONTROLLED VOCABULARY: CONTEXT -->
+  
+
+    <xs:simpleType name="contextType">
+        <xs:restriction base="xs:string">
+            <xs:enumeration value="LeisureReading"/>
+            <xs:enumeration value="AcademicReading"/>
+            <xs:enumeration value="ReflectiveReading"/>
+            <xs:enumeration value="LightReading"/>
+            <xs:enumeration value="HealingReading"/>
+        </xs:restriction>
+    </xs:simpleType>
+
+
+ <!--___________________ -->
+<!-- CREATOR'S NATIONALITY -->
+
+<xs:simpleType name="creatorNationalityType">
+    <xs:annotation>
+        <xs:documentation>
+            Nationality of the author.
+            Country names are recommended based on ISO standards.
+        </xs:documentation>
+    </xs:annotation>
+
+    <xs:restriction base="xs:string"/>
+</xs:simpleType>
+ <!--_____ -->
+<!-- THEME -->
+
+  <xs:complexType name="themeType">
+    <xs:annotation>
+        <xs:documentation>
+            Theme values is recommended to be selected from Library of Congress Subject Headings (LCSH).
+        </xs:documentation>
+    </xs:annotation>
+    <xs:simpleContent>
+
+        <xs:extension base="xs:string">
+
+            <xs:attribute name="vocabulary"
+                          type="xs:string"
+                          use="required"/>
+
+        </xs:extension>
+     </xs:simpleContent>
+</xs:complexType>
+
+
+
+
+<!--
+DESIGN INTENT:
+bookRecord serves as the root container for a single book description.
+The schema combines traditional bibliographic metadata derived from Dublin
+Core with reader-centered metadata developed in the bk namespace.
+
+AI ASSISTANCE:
+ChatGPT assisted with the initial XSD structure. The final schema was
+extensively modified to reflect the data dictionary, controlled vocabularies,
+cardinality rules, and feedback received during class review.
+-->
+
+    <!-- ____________ -->
+    <!-- ROOT ELEMENT -->
+
+    <xs:element name="bookRecord">
+
+        <xs:annotation>
+            <xs:documentation>
+                Root element representing a single book description record.
+            </xs:documentation>
+        </xs:annotation>
+
+        <xs:complexType>
+
+            <xs:sequence>
+
+                <!-- TITLE -->
+
+                <xs:element name="title" 
+                type="xs:string"
+                minOccurs="1"
+                maxOccurs="1">
+                    <xs:annotation>
+                        <xs:documentation>
+                            The name given to the book.
+                             Equivalent to Dublin Core element dc:title.
+                             URI: http://purl.org/dc/elements/1.1/title
+                        </xs:documentation>
+                    </xs:annotation>
+                </xs:element>
+
+                <!-- CREATOR -->
+
+                <xs:element name="creator"
+                 type="xs:string"
+                 minOccurs="1"
+                 maxOccurs="1">
+                    <xs:annotation>
+                        <xs:documentation>
+                            The author of a book. 
+                            Equivalent to Dublin Core element dc:creator.
+                            URI: http://purl.org/dc/elements/1.1/creator
+                        </xs:documentation>
+                    </xs:annotation>
+                </xs:element>
+
+                <!-- AUTHOR NATIONALITY -->
+<!--
+DESIGN INTENT:
+Creator nationality is optional because it provides useful contextual
+information for comparative or cultural analysis but is not required for
+basic identification or retrieval of a resource.
+
+AI ASSISTANCE:
+An initial controlled vocabulary was considered, but it was removed to
+allow greater flexibility and support authors from any country.
+-->
+                <xs:element name="creatorNationality"
+                 type="bk:creatorNationalityType"
+                 minOccurs="0"
+                 maxOccurs="1">
+                  <xs:annotation>
+                        <xs:documentation>
+                            Nationality of the author.
+                        </xs:documentation>
+                  </xs:annotation>
+                </xs:element>
+
+                <!-- DATE ISSUED -->
+
+                <xs:element name="issued"
+                type="xs:date"  
+                minOccurs="1"
+                maxOccurs="1">
+                    <xs:annotation>
+                        <xs:documentation>
+                            Publication date of the book. 
+                            Equivalent to Dublin Core Terms element dcterms:issued.
+                            URI: http://purl.org/dc/terms/issued
+                        </xs:documentation>
+                    </xs:annotation>
+                </xs:element>
+
+                <!-- PUBLISHER -->
+
+               <xs:element name="publisher"
+                type="xs:string"
+                minOccurs="1"
+                maxOccurs="1">
+                    <xs:annotation>
+                        <xs:documentation>
+                            Company responsible for publishing the book. 
+                            Equivalent to Dublin Core element dc:publisher.
+                            URI: http://purl.org/dc/elements/1.1/publisher
+                        </xs:documentation>
+                    </xs:annotation>
+                </xs:element>
+
+                <!-- ISBN -->
+
+               <xs:element name="identifier"
+                type="xs:string"
+                minOccurs="1"
+                maxOccurs="1">
+                    <xs:annotation>
+                        <xs:documentation>
+                            ISBN identifier for the book.
+                             Equivalent to Dublin Core element dc:identifier.
+                              URI: http://purl.org/dc/elements/1.1/identifier
+                        </xs:documentation>
+                    </xs:annotation>
+                </xs:element>
+
+                <!-- SUBJECT -->
+<!--
+DESIGN INTENT:
+Subject is repeatable because a single book may belong to multiple topical
+categories. LCSH is recommended to improve consistency and interoperability.
+-->
+                <xs:element name="subject"
+                type="xs:string"
+                minOccurs="1"
+                maxOccurs="unbounded">
+                    <xs:annotation>
+                        <xs:documentation>
+                            General topic or genre of the book. 
+                            Equivalent to Dublin Core element dc:subject.
+                            URI: http://purl.org/dc/elements/1.1/subject
+                            Recommended vocabulary:  Library of Congress Subject Headings (LCSH)
+
+                        </xs:documentation>
+                    </xs:annotation>
+                </xs:element>
+
+                <!-- EXTENT -->
+
+                <xs:element name="extent"
+                type="xs:positiveInteger"
+                minOccurs="0"
+                maxOccurs="1">
+                    <xs:annotation>
+                        <xs:documentation>
+                            Number of pages.
+                             Equivalent to Dublin Core Terms element dcterms:extent.
+                             URI: http://purl.org/dc/terms/extent
+                        </xs:documentation>
+                    </xs:annotation>
+                </xs:element>
+
+                <!-- AUDIENCE -->
+<!--
+DESIGN INTENT:
+The audience element is repeatable because a single book may be suitable
+for multiple readership groups. For example, a book may be appropriate for
+both Youth and General audiences.
+-->
+                <xs:element name="audience"
+                type="bk:audienceType"
+                minOccurs="1"
+                maxOccurs="unbounded">
+                    <xs:annotation>
+                        <xs:documentation>
+                            Intended reader group.
+                        </xs:documentation>
+                    </xs:annotation>
+                </xs:element>
+
+                <!-- READING LEVEL -->
+<!--
+DESIGN INTENT:
+Reading level is mandatory because this schema is designed to support
+reader-centered discovery and recommendation. The element helps users
+identify books that match their reading ability.
+
+AI ASSISTANCE:
+The simpleType structure was generated with AI assistance and modified
+to reflect the three-level vocabulary defined in Draft 3.
+-->
+                <xs:element name="readingLevel"
+                type="bk:readingLevelType"
+                minOccurs="1"
+                maxOccurs="1">
+                    <xs:annotation>
+                        <xs:documentation>
+                            Difficulty level required to read and understand the book.
+                        </xs:documentation>
+                    </xs:annotation>
+                </xs:element>
+
+                <!-- EMOTIONAL TONE -->
+<!--
+DESIGN INTENT:
+Emotional tone is repeatable because a book may convey multiple emotional
+atmospheres simultaneously. This element supports affective discovery
+beyond traditional bibliographic description.
+-->
+                <xs:element name="emotionalTone"
+                            type="bk:emotionalToneType"
+                            minOccurs="0"
+                            maxOccurs="unbounded">
+                    <xs:annotation>
+                        <xs:documentation>
+                            Emotional atmosphere of the book.
+                        </xs:documentation>
+                    </xs:annotation>
+                </xs:element>
+
+                <!-- CONTEXT -->
+<!--
+DESIGN INTENT:
+Context describes recommended reading situations rather than content.
+The element is optional because not every book requires a specific reading
+context, but it improves recommendation functionality.
+
+AI ASSISTANCE:
+The controlled vocabulary structure was generated using AI and revised to
+reflect the project's user-centered design goals.
+-->
+                <xs:element name="context"
+                            type="bk:contextType"
+                            maxOccurs="1"
+                            minOccurs="0">
+                    <xs:annotation>
+                        <xs:documentation>
+                            Recommended reading situation or purpose.
+                        </xs:documentation>
+                    </xs:annotation>
+                </xs:element>
+
+                <!-- THEME -->
+<!--
+DESIGN INTENT:
+Theme provides a more granular level of description than subject.
+Because themes vary significantly across books, the schema recommends
+using external vocabularies such as LCSH rather than enforcing a fixed
+enumeration list.
+ -->
+                <xs:element name="theme"
+                            type="bk:themeType"
+                            minOccurs="0"
+                            maxOccurs="unbounded">
+                    <xs:annotation>
+                        <xs:documentation>
+                            Specific conceptual topic represented in the book.
+                        </xs:documentation>
+                    </xs:annotation>
+                </xs:element>
+
+            </xs:sequence>
+
+        </xs:complexType>
+
+    </xs:element>
+
+</xs:schema>
